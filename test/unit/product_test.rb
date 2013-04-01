@@ -58,4 +58,20 @@ class ProductTest < ActiveSupport::TestCase
         # or I18n.translate('activerecord.errors.messages.taken')
         assert_equal "has already been taken", product.errors[:title].join("; ")
     end
+
+    test "product title must be greater than 10 chars" do
+        product = Product.new(title: "123456789",
+            description: "yyy",
+            price: 1,
+            image_url: "fred.gif")
+        assert !product.save, "title need more than 10 chars"
+        assert_equal "too_short",
+            product.errors[:title].join("; ")
+
+        product = Product.new(title: "0123456789",
+            description: "yyy",
+            price: 1,
+            image_url: "fred.gif")
+        assert product.save
+    end
 end
