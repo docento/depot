@@ -2,7 +2,11 @@
     <p id="notice"><%= notice %></p>
 <% end %>
 
-<h1>Your Progmatic Catalog</h1>
+<h1>Your Progmatic Catalog
+    <% if @counted > 5 %>
+        | counted: <%= @counted %>
+    <% end %>
+</h1>
 
 <% @products.each do |product| %>
     <div class="entry">
